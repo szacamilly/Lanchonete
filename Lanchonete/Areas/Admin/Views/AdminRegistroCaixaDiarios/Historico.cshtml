@@ -1,0 +1,59 @@
+﻿@model ReflectionIT.Mvc.Paging.PagingList<Lanchonete.Models.RegistroCaixaDiario>
+
+@{
+    ViewData["Title"] = "Histórico de Caixas Diários";
+}
+
+<h3>Histórico de Caixas Diários</h3>
+<hr />
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            {{-- ESTAS LINHAS ESTÃO CORRETAS para DisplayNameFor em um PagingList
+            <T>
+                --}}
+                <th>@Html.DisplayNameFor(model => model.DataCaixa)</th>
+                <th>@Html.DisplayNameFor(model => model.SaldoAbertura)</th>
+                <th>@Html.DisplayNameFor(model => model.TotalEntradas)</th>
+                <th>@Html.DisplayNameFor(model => model.TotalSaidas)</th>
+                <th>@Html.DisplayNameFor(model => model.SaldoFechamento)</th>
+                <th>@Html.DisplayNameFor(model => model.CaixaFechado)</th>
+                <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {{-- O loop foreach funciona perfeitamente com o Model (PagingList
+        <T>
+            ) --}}
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.DataCaixa.ToShortDateString()</td>
+                    <td>@item.SaldoAbertura.ToString("C2")</td>
+                    <td class="text-success">@item.TotalEntradas.ToString("C2")</td>
+                    <td class="text-danger">@item.TotalSaidas.ToString("C2")</td>
+                    <td class="@(item.SaldoFechamento >= 0 ? "text-primary" : "text-danger")">@item.SaldoFechamento.ToString("C2")</td>
+                    <td>
+                        @if (item.CaixaFechado)
+                        {
+                            <span class="badge bg-danger">Sim</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-success">Não</span>
+                        }
+                        <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a>
+                    </td>
+                </tr>
+            }
+    </tbody>
+</table>
+
+<div>
+    <a asp-action="Index" class="btn btn-outline-info">Voltar ao Caixa do Dia</a>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

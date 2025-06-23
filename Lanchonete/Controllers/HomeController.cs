@@ -1,32 +1,34 @@
 ﻿using System.Diagnostics;
 using Lanchonete.Models;
+using Lanchonete.Repositories.Interfaces;
+using Lanchonete.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lanchonete.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILancheRepository _lancheRepository;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILancheRepository lancheRepository)
         {
-            _logger = logger;
+            _lancheRepository = lancheRepository;
         }
 
         public IActionResult Index()
         {
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
+            var homeViewModel = new HomeViewModel
+            {
+                LanchesPreferidos = _lancheRepository.LanchesPreferidos
+            };
+            return View(homeViewModel);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
         }
     }
 }

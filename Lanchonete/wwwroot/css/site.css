@@ -16,3 +16,22 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.produto-imagem {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.produto-card {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin: 15px;
+    max-width: 250px;
+    display: inline-block;
+    vertical-align: top;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 10px;
+}

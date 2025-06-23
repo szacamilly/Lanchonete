@@ -1,0 +1,53 @@
+﻿@model ReflectionIT.Mvc.Paging.PagingList<Lanchonete.Models.MateriaPrima>
+
+@{
+    ViewData["Title"] = "Matérias-Primas";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Criar nova matéria-prima</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnidadeMedida)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EstoqueAtual)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EstoqueMinimo)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnidadeMedida)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EstoqueAtual)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EstoqueMinimo)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.MateriaPrimaId">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.MateriaPrimaId">Detalhes</a> |
+                <a asp-action="Delete" asp-route-id="@item.MateriaPrimaId">Deletar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

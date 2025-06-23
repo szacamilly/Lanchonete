@@ -1,13 +1,25 @@
-﻿namespace Lanchonete.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Lanchonete.Models
 {
+    [Table("MateriasPrimas")]
     public class MateriaPrima
     {
+        [Key]
         public int MateriaPrimaId { get; set; }
-        public string Nome { get; set; }
-        public string UnidadeMedida { get; set; }
-        public int EstoqueMinimo { get; set; }
 
-        public int LancheId { get; set; }
-        public virtual Lanche Lanche { get; set; }
+        [Required]
+        [StringLength(80)]
+        public string Nome { get; set; }
+
+        [Required]
+        [StringLength(20)]
+        public string UnidadeMedida { get; set; }
+
+        public double EstoqueAtual { get; set; }
+        public double EstoqueMinimo { get; set; }
+
+        public List<LancheMateriaPrima> LanchesMateriasPrimas { get; set; }
     }
 }

@@ -1,0 +1,81 @@
+﻿@model Lanchonete.Models.Lanche
+
+@{
+    ViewData["Title"] = "Editar Lanche";
+}
+
+<h3>Editar Lanche</h3>
+<hr />
+
+<div class="row">
+    <div class="col-md-10">
+        <form asp-action="Edit" role="form">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+            <input type="hidden" asp-for="LancheId" />
+
+            <div class="form-group mb-3">
+                <label asp-for="Nome" class="control-label"></label>
+                <input asp-for="Nome" class="form-control" />
+                <span asp-validation-for="Nome" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Descricao" class="control-label"></label>
+                <textarea asp-for="Descricao" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="Descricao" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Preco" class="control-label"></label>
+                <input asp-for="Preco" class="form-control" type="number" step="0.01" min="0" />
+                <span asp-validation-for="Preco" class="text-danger"></span>
+            </div>
+
+            <div class="row mb-3">
+                <div class="form-group col-md-6">
+                    <label asp-for="ImagemThumbnailUrl" class="control-label"></label>
+                    <input asp-for="ImagemThumbnailUrl" class="form-control" />
+                    <span asp-validation-for="ImagemThumbnailUrl" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6 text-center">
+                    @if (!string.IsNullOrEmpty(Model.ImagemThumbnailUrl))
+                    {
+                        <img src="@Model.ImagemThumbnailUrl" class="img-thumbnail" alt="Thumbnail do Lanche" style="max-width: 100px; height: auto;" />
+                    }
+                    else
+                    {
+                        <p class="text-muted">Sem thumbnail</p>
+                    }
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="form-group form-check col-sm-4">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="IsLanchePreferido" /> @Html.DisplayNameFor(model => model.IsLanchePreferido)
+                    </label>
+                </div>
+                <div class="form-group form-check col-sm-4">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="EmEstoque" /> @Html.DisplayNameFor(model => model.EmEstoque)
+                    </label>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label asp-for="CategoriaId" class="control-label"></label>
+                    <select asp-for="CategoriaId" class="form-control" asp-items="ViewBag.CategoriaId">
+                        <option value="">-- Selecione a Categoria --</option>
+                    </select>
+                    <span asp-validation-for="CategoriaId" class="text-danger"></span>
+                </div>
+            </div>
+
+            <hr />
+            <div class="form-group">
+                <input type="submit" value="Salvar" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-outline-info ms-2">Retornar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

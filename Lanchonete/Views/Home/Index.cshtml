@@ -1,1 +1,54 @@
-﻿<partial name = "_Carousel"/>
+﻿@model HomeViewModel
+
+<div class="row text-center">
+    <h2>Lanches</h2>
+</div>
+
+<div class="container">
+    <section id="sobre">
+        <div class="row justify-content-center">
+            <div class="col-xs-12 col-sm-6 col-md-3 text-center">
+                <h3>Feitos com amor</h3>
+                <p class="text-muted">Fazemos seu lanche com carinho.</p>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3 text-center">
+                <h3>Prontos para entrega</h3>
+                <p class="text-muted">Entregamos o seu pedido</p>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3 text-center">
+                <h3>Preços Camaradas </h3>
+                <p class="text-muted">Promoções imperdíveis.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio">
+        <partial name="_Carousel" />
+
+        <div class="row">
+            @foreach (var lanche in Model.LanchesPreferidos)
+            {
+                <partial name="_LanchesResumo" for="@lanche" />
+            }
+        </div>
+    </section>
+
+    <br />
+
+    <section id="contato">
+        <div class="row">
+            <div class="col-10 col-md-5 col-lg-5 offset-1" style="color: black">
+                <h4> &copy; 2021 - Lanches Asteca</h4>
+            </div>
+
+            <div class="col-10 col-md-5 col-lg-5 offset-1" style="color: black">
+                <h4>Tem alguma dúvida?</h4>
+                <ul class="list-unstyled">
+                    <li class="py-1">Av. Jose Moises Ferreira, nº500 - Distrito Industrial, Pres. Prudente - SP, 19043-120</li>
+                    <li class="py-1">(18) 2101-4000</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+</div>
