@@ -1,16 +1,43 @@
 ﻿@model ReflectionIT.Mvc.Paging.PagingList<Lanchonete.Models.MateriaPrima>
+@using ReflectionIT.Mvc.Paging
+@addTagHelper *, ReflectionIT.Mvc.Paging
 
 @{
-    ViewData["Title"] = "Matérias-Primas";
+    ViewData["Title"] = "Gerenciar Matérias-Primas";
 }
 
-<h1>Index</h1>
+<h1 class="mb-4">@ViewData["Title"]</h1>
 
-<p>
-    <a asp-action="Create">Criar nova matéria-prima</a>
-</p>
-<table class="table">
-    <thead>
+@if (TempData["MensagemSucesso"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["MensagemSucesso"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <form method="get" class="d-flex align-items-center">
+        <input name="filter" class="form-control me-2" placeholder="Filtrar por nome"
+               value="@Model.RouteValue["filter"]" />
+        <button type="submit" class="btn btn-info">
+            <i class="bi bi-search me-1"></i> Procurar
+        </button>
+    </form>
+    <div>
+        <a asp-action="Create" class="btn btn-primary me-2">
+            <i class="bi bi-plus-circle me-1"></i> Criar Nova Matéria-Prima
+        </a>
+        <a asp-action="RegistrarCompra" class="btn btn-success">
+            <i class="bi bi-cart-plus me-1"></i> Registrar Compra
+        </a>
+    </div>
+</div>
+
+<p class="text-muted">Total de Matérias-Primas: @Model.TotalRecordCount</p>
+
+<table class="table table-hover table-striped">
+    <thead class="table-dark">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Nome)
@@ -24,30 +51,49 @@
             <th>
                 @Html.DisplayNameFor(model => model.EstoqueMinimo)
             </th>
-            <th></th>
+            <th>Ações</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UnidadeMedida)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EstoqueAtual)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EstoqueMinimo)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.MateriaPrimaId">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.MateriaPrimaId">Detalhes</a> |
-                <a asp-action="Delete" asp-route-id="@item.MateriaPrimaId">Deletar</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UnidadeMedida)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EstoqueAtual)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EstoqueMinimo)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.MateriaPrimaId" class="btn btn-sm btn-warning">Editar</a>
+                    <a asp-action="Details" asp-route-id="@item.MateriaPrimaId" class="btn btn-sm btn-info">Detalhes</a>
+                    <a asp-action="Delete" asp-route-id="@item.MateriaPrimaId" class="btn btn-sm btn-danger">Deletar</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+<nav aria-label="Paginação de Matérias-Primas">
+    <ul class="pagination justify-content-center">
+        <vc:pager paging-list="@Model"></vc:pager>
+    </ul>
+</nav>
+
+<div class="mt-4 text-center">
+    <a asp-area="Admin" asp-controller="Admin" asp-action="Index" class="btn btn-outline-secondary btn-lg">
+        <i class="bi bi-arrow-left-circle me-2"></i>Voltar ao Painel
+    </a>
+</div>
+
+@section Scripts {
+}
+
+@section Styles {
+}

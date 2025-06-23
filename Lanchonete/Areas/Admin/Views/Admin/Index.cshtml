@@ -1,9 +1,66 @@
-﻿<br />
-<div class="container">
-    <div class="jumbotron">
-        <p>
-            <h2>Esta é a área do Administrador</h2>
-        </p>
+﻿<div class="container mt-5">
+    <div class="text-center mb-4">
+        <h1 class="display-4 text-primary">Painel do Administrador</h1>
+        <p class="lead text-muted">Gerencie seu sistema de lanchonete aqui.</p>
     </div>
-    <a asp-area="" asp-controller="Home" asp-action="Index">Volta a Home Page</a>
+
+    <hr class="my-4">
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <div class="col">
+            <div class="card h-100 shadow-sm border-primary">
+                <div class="card-body text-center">
+                    <i class="bi bi-burger" style="font-size: 3rem; color: var(--bs-primary);"></i>
+                    <h5 class="card-title mt-3">Gerenciar Lanches</h5>
+                    <p class="card-text text-muted">Adicione, edite e remova lanches do cardápio.</p>
+                    <a asp-area="Admin" asp-controller="AdminLanches" asp-action="Index" class="btn btn-primary mt-2">
+                        <i class="bi bi-pencil-square me-2"></i>Acessar
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card h-100 shadow-sm border-success">
+                <div class="card-body text-center">
+                    <i class="bi bi-box-seam" style="font-size: 3rem; color: var(--bs-success);"></i>
+                    <h5 class="card-title mt-3">Gerenciar Matérias-Primas</h5>
+                    <p class="card-text text-muted">Controle seu estoque de ingredientes.</p>
+                    <a asp-area="Admin" asp-controller="AdminMateriaPrimas" asp-action="Index" class="btn btn-success mt-2">
+                        <i class="bi bi-truck me-2"></i>Acessar
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card h-100 shadow-sm border-info">
+                <div class="card-body text-center">
+                    <i class="bi bi-receipt" style="font-size: 3rem; color: var(--bs-info);"></i>
+                    <h5 class="card-title mt-3">Gerenciar Pedidos</h5>
+                    <p class="card-text text-muted">Visualize e acompanhe todos os pedidos.</p>
+                    <a asp-area="Admin" asp-controller="AdminPedidos" asp-action="Index" class="btn btn-info mt-2">
+                        <i class="bi bi-list-check me-2"></i>Acessar
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <hr class="my-4">
+
+    <div class="text-center mt-4">
+        <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary btn-lg">
+            <i class="bi bi-house-door-fill me-2"></i>Voltar à Home Page
+        </a>
+    </div>
 </div>
+
+@section Styles {
+    <style>
+        /* .card-title {
+                    color: #333;
+                } */
+    </style>
+}

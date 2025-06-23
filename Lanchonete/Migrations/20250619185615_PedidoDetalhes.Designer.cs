@@ -24,7 +24,7 @@ namespace Lanchonete.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("LanchesMac.Models.PedidoDetalhe", b =>
+            modelBuilder.Entity("Lanchonete.Models.PedidoDetalhe", b =>
                 {
                     b.Property<int>("PedidoDetalheId")
                         .ValueGeneratedOnAdd()
@@ -266,7 +266,7 @@ namespace Lanchonete.Migrations
                     b.ToTable("Pedidos");
                 });
 
-            modelBuilder.Entity("LanchesMac.Models.PedidoDetalhe", b =>
+            modelBuilder.Entity("Lanchonete.Models.PedidoDetalhe", b =>
                 {
                     b.HasOne("Lanchonete.Models.Lanche", "Lanche")
                         .WithMany()

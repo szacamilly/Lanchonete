@@ -29,6 +29,16 @@ namespace Lanchonete.Context
 
             modelBuilder.Entity<LancheMateriaPrima>()
                 .HasKey(lmp => new { lmp.LancheId, lmp.MateriaPrimaId });
+
+            modelBuilder.Entity<LancheMateriaPrima>()
+                .HasOne(lmp => lmp.Lanche)
+                .WithMany(l => l.LanchesMateriasPrimas)
+                .HasForeignKey(lmp => lmp.LancheId);
+
+            modelBuilder.Entity<LancheMateriaPrima>()
+                .HasOne(lmp => lmp.MateriaPrima)
+                .WithMany(mp => mp.LanchesMateriasPrimas)
+                .HasForeignKey(lmp => lmp.MateriaPrimaId);
         }
     }
 }

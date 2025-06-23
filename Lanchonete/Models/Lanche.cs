@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.Collections.Generic;
 
 namespace Lanchonete.Models
 {
@@ -16,7 +18,7 @@ namespace Lanchonete.Models
 
         [Required(ErrorMessage = "A descrição do lanche deve ser informada")]
         [Display(Name = "Descrição do lanche")]
-        [MinLength(20, ErrorMessage = "A descrição deve ter no mínimo {1} caracteres")]
+        [MinLength(10, ErrorMessage = "A descrição deve ter no mínimo {1} caracteres")]
         [MaxLength(200, ErrorMessage = "A descrição pode exceder {1} caracteres")]
         public string Descricao { get; set; }
 
@@ -42,8 +44,11 @@ namespace Lanchonete.Models
 
         [Display(Name = "Categorias")]
         public int CategoriaId { get; set; }
-        public virtual Categoria Categoria { get; set; }
 
-        public List<LancheMateriaPrima> LanchesMateriasPrimas { get; set; }
+        [BindNever]
+        public virtual Categoria? Categoria { get; set; }
+
+        [BindNever]
+        public virtual ICollection<LancheMateriaPrima>? LanchesMateriasPrimas { get; set; }
     }
 }

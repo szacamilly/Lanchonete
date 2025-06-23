@@ -1,54 +1,93 @@
 ﻿@model HomeViewModel
 
-<div class="row text-center">
-    <h2>Lanches</h2>
-</div>
+@{
+    ViewData["Title"] = "Lanches Asteca - O Sabor que Você Merece!";
+}
 
-<div class="container">
-    <section id="sobre">
-        <div class="row justify-content-center">
-            <div class="col-xs-12 col-sm-6 col-md-3 text-center">
-                <h3>Feitos com amor</h3>
-                <p class="text-muted">Fazemos seu lanche com carinho.</p>
+<div class="container my-5">
+
+    <section id="sobre" class="mb-5 py-4">
+        <h2 class="text-center display-5 fw-bold text-dark mb-4">Por que escolher o Lanches Asteca?</h2>
+        <div class="row justify-content-center g-4">
+            <div class="col-xs-12 col-sm-6 col-md-4 text-center">
+                <div class="p-3 border rounded shadow-sm h-100 d-flex flex-column justify-content-center align-items-center">
+                    <i class="bi bi-heart-fill text-danger mb-3" style="font-size: 3rem;"></i>
+                    <h3 class="h5 fw-bold">Feitos com Amor</h3>
+                    <p class="text-muted mb-0">Cada lanche é preparado com carinho e ingredientes frescos para você.</p>
+                </div>
             </div>
-            <div class="col-xs-12 col-sm-6 col-md-3 text-center">
-                <h3>Prontos para entrega</h3>
-                <p class="text-muted">Entregamos o seu pedido</p>
+            <div class="col-xs-12 col-sm-6 col-md-4 text-center">
+                <div class="p-3 border rounded shadow-sm h-100 d-flex flex-column justify-content-center align-items-center">
+                    <i class="bi bi-truck text-success mb-3" style="font-size: 3rem;"></i>
+                    <h3 class="h5 fw-bold">Prontos para Entrega</h3>
+                    <p class="text-muted mb-0">Entregamos seu pedido quentinho e rápido no conforto da sua casa.</p>
+                </div>
             </div>
-            <div class="col-xs-12 col-sm-6 col-md-3 text-center">
-                <h3>Preços Camaradas </h3>
-                <p class="text-muted">Promoções imperdíveis.</p>
+            <div class="col-xs-12 col-sm-6 col-md-4 text-center">
+                <div class="p-3 border rounded shadow-sm h-100 d-flex flex-column justify-content-center align-items-center">
+                    <i class="bi bi-currency-dollar text-warning mb-3" style="font-size: 3rem;"></i>
+                    <h3 class="h5 fw-bold">Preços Camaradas</h3>
+                    <p class="text-muted mb-0">Promoções imperdíveis que cabem no seu bolso.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="portfolio">
+    <hr class="my-5">
+
+    <section id="portfolio" class="mb-5 py-4">
+        <h2 class="text-center display-5 fw-bold text-secondary mb-4">Conheça Nossos Lanches</h2>
+
         <partial name="_Carousel" />
 
-        <div class="row">
+        <h3 class="text-center h3 fw-bold my-4 text-dark">Lanches Preferidos da Galera!</h3>
+        <div class="row justify-content-center g-4">
             @foreach (var lanche in Model.LanchesPreferidos)
             {
                 <partial name="_LanchesResumo" for="@lanche" />
             }
         </div>
+        <div class="text-center mt-5">
+            <a asp-controller="Lanche" asp-action="List" class="btn btn-outline-primary btn-lg shadow-sm">
+                Ver Cardápio Completo <i class="bi bi-arrow-right-circle-fill ms-2"></i>
+            </a>
+        </div>
     </section>
 
-    <br />
+    <hr class="my-5">
 
-    <section id="contato">
-        <div class="row">
-            <div class="col-10 col-md-5 col-lg-5 offset-1" style="color: black">
-                <h4> &copy; 2021 - Lanches Asteca</h4>
-            </div>
-
-            <div class="col-10 col-md-5 col-lg-5 offset-1" style="color: black">
-                <h4>Tem alguma dúvida?</h4>
-                <ul class="list-unstyled">
-                    <li class="py-1">Av. Jose Moises Ferreira, nº500 - Distrito Industrial, Pres. Prudente - SP, 19043-120</li>
-                    <li class="py-1">(18) 2101-4000</li>
-                </ul>
+    <section id="contato" class="mb-5 py-4 bg-light rounded-3 shadow-sm p-4">
+        <h2 class="text-center display-5 fw-bold text-dark mb-4">Entre em Contato</h2>
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8">
+                <div class="card border-0 bg-transparent">
+                    <div class="card-body">
+                        <p class="card-text fs-5 text-center text-muted mb-4">Tem alguma dúvida, sugestão ou quer fazer um pedido especial? Estamos aqui para ajudar!</p>
+                        <div class="text-center mb-4">
+                            <a asp-area="" asp-controller="Contato" asp-action="Index" class="btn btn-info btn-lg text-white shadow-sm">
+                                <i class="bi bi-chat-dots-fill me-2"></i>Fale Conosco
+                            </a>
+                        </div>
+                        <div class="text-center text-muted small mt-4">
+                            <h5 class="fw-bold">Nossos Dados:</h5>
+                            <p class="mb-1"><i class="bi bi-geo-alt-fill me-2"></i>Av. Jose Moises Ferreira, nº500 - Distrito Industrial, Pres. Prudente - SP, 19043-120</p>
+                            <p class="mb-1"><i class="bi bi-telephone-fill me-2"></i>(18) 2101-4000</p>
+                            <p><i class="bi bi-envelope-fill me-2"></i>contato@lanchesasteca.com.br</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
 </div>
+
+@section Styles {
+    @* Estilos específicos para a Home Page, se houver, vão aqui *@
+    <style>
+        .jumbotron-fluid {
+            background: linear-gradient(to right, #f8f9fa, #e9ecef);
+            color: #343a40;
+        }
+    </style>
+}

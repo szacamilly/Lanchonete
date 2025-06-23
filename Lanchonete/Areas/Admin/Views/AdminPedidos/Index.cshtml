@@ -1,29 +1,41 @@
 ﻿@model ReflectionIT.Mvc.Paging.PagingList<Lanchonete.Models.Pedido>
+@using ReflectionIT.Mvc.Paging
+@addTagHelper *, ReflectionIT.Mvc.Paging
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Gerenciar Pedidos";
 }
 
-<h3>Pedidos</h3>
+<h1 class="mb-4">@ViewData["Title"]</h1>
 
-<form method="get" class="form-inline">
+@* Se você tiver uma mensagem de sucesso, ela pode ser exibida aqui *@
+@if (TempData["MensagemSucesso"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["MensagemSucesso"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
 
-    <input name="filter" class="form-control" placeholder="filtro"
-           value="@Model.RouteValue["Filter"]" />
-
-    <button type="submit" class="btn btn-info">Procurar</button>
-</form>
-
-Total de Pedidos : @Model.TotalRecordCount
-<div>
-    <vc:pager paging-list="@Model"></vc:pager>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <form method="get" class="d-flex align-items-center">
+        <input name="filter" class="form-control me-2" placeholder="Filtrar por nome do cliente"
+               value="@Model.RouteValue["filter"]" />
+        <button type="submit" class="btn btn-info">
+            <i class="bi bi-search me-1"></i> Procurar
+        </button>
+    </form>
+    <div>
+        <a asp-action="Create" class="btn btn-primary">
+            <i class="bi bi-plus-circle me-1"></i> Criar Novo Pedido
+        </a>
+    </div>
 </div>
 
-<p>
-    <a asp-action="Create">Criar novo pedido</a>
-</p>
-<table class="table">
-    <thead>
+<p class="text-muted">Total de Pedidos: @Model.TotalRecordCount</p>
+
+<table class="table table-hover table-striped table-responsive">
+    <thead class="table-dark">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Nome)
@@ -34,7 +46,8 @@ Total de Pedidos : @Model.TotalRecordCount
             <th>
                 @Html.DisplayNameFor(model => model.Endereco)
             </th>
-            <th>
+            @* Reduzir colunas para melhor visualização em telas menores ou adicionar rolagem horizontal *@
+            @* <th>
                 @Html.DisplayNameFor(model => model.Endereco2)
             </th>
             <th>
@@ -45,7 +58,7 @@ Total de Pedidos : @Model.TotalRecordCount
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Cidade)
-            </th>
+            </th> *@
             <th>
                 @Html.DisplayNameFor(model => model.Telefone)
             </th>
@@ -58,22 +71,24 @@ Total de Pedidos : @Model.TotalRecordCount
             <th>
                 @Html.DisplayNameFor(model => model.PedidoEntregueEm)
             </th>
-            <th></th>
+            <th>Ações</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Sobrenome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Endereco)
-            </td>
-            <td>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sobrenome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Endereco)
+                </td>
+                @* Colunas ocultadas/reduzidas *@
+                @* <td>
                 @Html.DisplayFor(modelItem => item.Endereco2)
             </td>
             <td>
@@ -84,25 +99,49 @@ Total de Pedidos : @Model.TotalRecordCount
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Cidade)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Telefone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PedidoEnviado)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PedidoEntregueEm)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.PedidoId">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.PedidoId">Detalhes</a> |
-                <a asp-action="Delete" asp-route-id="@item.PedidoId">Deletar</a>
-            </td>
-        </tr>
-}
+            </td> *@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Telefone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PedidoEnviado)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PedidoEntregueEm)
+                </td>
+                <td>
+                    <div class="d-flex flex-column">
+                        @* Botões em coluna para economizar espaço *@
+                        <a asp-action="Edit" asp-route-id="@item.PedidoId" class="btn btn-sm btn-warning mb-1">Editar</a>
+                        <a asp-action="Details" asp-route-id="@item.PedidoId" class="btn btn-sm btn-info mb-1">Detalhes</a>
+                        <a asp-action="Delete" asp-route-id="@item.PedidoId" class="btn btn-sm btn-danger mb-1">Deletar</a>
+                        <a asp-action="PedidoLanche" asp-route-id="@item.PedidoId" class="btn btn-sm btn-dark">Ver itens</a>
+                    </div>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+<nav aria-label="Paginação de Pedidos">
+    <ul class="pagination justify-content-center">
+        <vc:pager paging-list="@Model"></vc:pager>
+    </ul>
+</nav>
+
+<div class="mt-4 text-center">
+    <a asp-area="Admin" asp-controller="Admin" asp-action="Index" class="btn btn-outline-secondary btn-lg">
+        <i class="bi bi-arrow-left-circle me-2"></i>Voltar ao Painel
+    </a>
+</div>
+
+@section Scripts {
+    @* Adicione scripts específicos para esta página se precisar, como para o filtro. *@
+}
+
+@section Styles {
+    @* Adicione estilos específicos para esta página se precisar. *@
+}
